@@ -1,0 +1,14 @@
+<div *ngIf="rooms && rooms.length > 0">
+  <h2>Комнаты:</h2>
+  <ul>
+    <li *ngFor="let room of rooms">
+      <strong>Тип:</strong> {{ room.type }}<br />
+      <strong>Кровати:</strong> {{ room.beds }}<br />
+      <strong>Цена:</strong> ${{ room.price }}<br />
+      <strong>Доступность:</strong> {{ room.available ? "Да" : "Нет" }}<br />
+    </li>
+  </ul>
+</div>
+<div *ngIf="!(rooms && rooms.length > 0)">
+  <p>Нет доступных комнат.</p>
+</div>

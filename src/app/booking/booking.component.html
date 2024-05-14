@@ -1,0 +1,47 @@
+<div>
+  <h2>Новая бронь</h2>
+  <form
+    [formGroup]="newBookingForm"
+    (ngSubmit)="editingBooking ? saveBooking() : createBooking()"
+  >
+    <label for="hotelId">Отель</label>
+    <select id="hotelId" formControlName="hotelId" (change)="onHotelChange()">
+      <option *ngFor="let hotel of hotels" [value]="hotel.id">
+        {{ hotel.name }}
+      </option>
+    </select>
+
+    <label for="roomId">Комната</label>
+    <select id="roomId" formControlName="roomId">
+      <option *ngFor="let room of filteredRooms" [value]="room.id">
+        Номер: {{ room.id }} Тип: {{ room.type }} Цена: {{ room.price }}
+      </option>
+    </select>
+
+    <label for="checkInDate">Дата заезда</label>
+    <input type="date" id="checkInDate" formControlName="checkInDate" />
+
+    <label for="checkOutDate">Дата выезда</label>
+    <input type="date" id="checkOutDate" formControlName="checkOutDate" />
+
+    <button type="submit">
+      {{ editingBooking ? "Сохранить" : "Создать" }}
+    </button>
+    <button type="button" *ngIf="editingBooking" (click)="cancelEdit()">
+      Отменить
+    </button>
+  </form>
+
+  <h2>Текущие бронирования</h2>
+  <ul>
+    <li *ngFor="let booking of bookings">
+      <p>Отель: {{ booking.hotelId }}</p>
+      <p>Комната: {{ booking.roomId }}</p>
+      <p>Дата заезда: {{ booking.checkInDate | date }}</p>
+      <p>Дата выезда: {{ booking.checkOutDate | date }}</p>
+      <p>Статус: {{ booking.status }}</p>
+      <button (click)="editBooking(booking)">Редактировать</button>
+      <button (click)="deleteBooking(booking.id)">Удалить</button>
+    </li>
+  </ul>
+</div>
